@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <a href="/" class="btn btn-primary mb-3">Back</a>
+      <% if (locals.blogDetails && locals.userDetails) { %>
+      <div class="blog-header">
+        <h1 class="text-center"><%= blogDetails.title %></h1>
+        <div class="text-center">
+          <img
+            src="<%= blogDetails.coverImageUrl %>"
+            class="img-fluid rounded mb-4"
+            style="max-height: 400px; object-fit: cover"
+          />
+        </div>
+        <div class="submitted-by">
+          <h3>Submitted by: <%= userDetails %></h3>
+        </div>
+      </div>
+      <div class="blog-body">
+        <p><%= blogDetails.body %></p>
+      </div>  
+      <div class="container">
+        <h2>Add a Comment</h2>
+        <form action="/blog/postComment/<%= blogDetails._id %>" method="post">
+          <div class="mb-3">
+            <label for="comment" class="form-label">Your Comment</label>
+            <textarea
+              class="form-control"
+              id="comment"
+              name="comment"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+      </div>
+
+
+      <% } %> <% if (locals.comments) { %>
+      <div class="container mt-3">
+        <div class="row">
+          <% comments.forEach(comment => { %>
+          <div class="col-md-8">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="media">
+                  <img
+                    src="/avatar.jpg"
+                    class="mr-3 rounded-circle"
+                    alt="Profile Image"
+                    style="width: 50px; height: 50px"
+                  />
+                  <div class="media-body">
+                    <h5 class="mt-0"><%= comment.fullName %></h5>
+                    <p><%= comment.comment %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <% } %>
+    </div>
+  </div>
+</div>
